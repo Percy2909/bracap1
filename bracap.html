@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRACAP — Europe Made Simple for B2B Travel Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #F2EBE0;
+    --cream: #FAF7F3;
+    --ink: #1A1611;
+    --terracotta: #C4622D;
+    --olive: #4A5240;
+    --gold: #B8953F;
+    --mist: #E8E2D9;
+    --charcoal: #2E2922;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px;
+    background: rgba(250,247,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--mist);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    text-decoration: none; color: var(--charcoal); opacity: 0.75;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--terracotta); }
+  .nav-cta {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    background: var(--ink); color: var(--cream);
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.25s;
+  }
+  .nav-cta:hover { background: var(--terracotta); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 140px 60px 80px;
+    background: var(--ink);
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300; line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 32px;
+  }
+  .hero-title em { font-style: italic; color: var(--terracotta); }
+  .hero-subtitle {
+    font-size: 15px; font-weight: 400; line-height: 1.7;
+    color: rgba(250,247,243,0.6);
+    max-width: 400px;
+    margin-bottom: 52px;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    background: var(--terracotta); color: var(--cream);
+    border: none; cursor: pointer; text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: #b5581f; }
+  .btn-ghost {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+    text-decoration: none; color: var(--cream); opacity: 0.65;
+    display: flex; align-items: center; gap: 8px;
+    transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 1; }
+  .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+  .btn-ghost:hover::after { transform: translateX(4px); }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .hero-img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.85) saturate(1.1);
+    transform: scale(1.03);
+    transition: transform 8s ease;
+  }
+  .hero-right:hover .hero-img { transform: scale(1.0); }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(26,22,17,0.3) 0%, transparent 60%);
+  }
+  .hero-caption {
+    position: absolute; bottom: 40px; right: 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-style: italic;
+    color: rgba(250,247,243,0.8);
+    letter-spacing: 0.05em;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 60px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(250,247,243,0.4);
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .hero-scroll-line {
+    width: 40px; height: 1px; background: rgba(250,247,243,0.3);
+    position: relative; overflow: hidden;
+  }
+  .hero-scroll-line::after {
+    content: ''; position: absolute;
+    left: -100%; top: 0; width: 100%; height: 100%;
+    background: var(--terracotta);
+    animation: slide 2s ease infinite;
+  }
+  @keyframes slide { to { left: 100%; } }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--sand);
+    padding: 72px 60px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--mist);
+  }
+  .stat-item {
+    padding: 0 40px;
+    border-right: 1px solid rgba(26,22,17,0.12);
+    display: flex; flex-direction: column;
+    animation: fadeUp 0.6s ease both;
+  }
+  .stat-item:first-child { padding-left: 0; }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px; font-weight: 300; line-height: 1;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .stat-number span { color: var(--terracotta); }
+  .stat-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--olive);
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 60px;
+  }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--terracotta);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300; line-height: 1.1;
+    color: var(--ink);
+  }
+  .section-link {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--ink); display: flex; align-items: center; gap: 8px;
+    white-space: nowrap;
+    padding-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .section-link:hover { color: var(--terracotta); }
+  .section-link::after { content: '→'; transition: transform 0.2s; }
+  .section-link:hover::after { transform: translateX(4px); }
+
+  /* ── DESTINATIONS ── */
+  .destinations { padding: 100px 60px; background: var(--cream); }
+  .dest-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 320px 320px;
+    gap: 12px;
+  }
+  .dest-card {
+    position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .dest-card:first-child { grid-row: 1 / 3; }
+  .dest-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: brightness(0.85);
+  }
+  .dest-card:hover img { transform: scale(1.06); }
+  .dest-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px 28px;
+    background: linear-gradient(to top, rgba(26,22,17,0.85) 0%, transparent 100%);
+  }
+  .dest-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 400; color: var(--cream);
+    display: block; margin-bottom: 4px;
+  }
+  .dest-card:first-child .dest-name { font-size: 42px; }
+  .dest-country {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(250,247,243,0.6);
+  }
+  .dest-tag {
+    position: absolute; top: 20px; right: 20px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cream);
+    background: var(--terracotta);
+    padding: 5px 12px;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 100px 60px;
+    background: var(--ink);
+  }
+  .services .section-title { color: var(--cream); }
+  .services .section-eyebrow { color: var(--gold); }
+  .services .section-link { color: var(--cream); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(250,247,243,0.08);
+    border: 1px solid rgba(250,247,243,0.08);
+  }
+  .service-card {
+    padding: 52px 44px;
+    background: var(--ink);
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--charcoal); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; font-weight: 300;
+    color: rgba(184,149,63,0.25); line-height: 1;
+    margin-bottom: 24px;
+  }
+  .service-title {
+    font-size: 16px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--cream); margin-bottom: 16px;
+  }
+  .service-desc {
+    font-size: 14px; font-weight: 400; line-height: 1.7;
+    color: rgba(250,247,243,0.5);
+  }
+  .service-icon {
+    width: 40px; height: 40px; margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(184,149,63,0.35);
+    color: var(--gold); font-size: 18px;
+  }
+
+  /* ── MARKETS ── */
+  .markets { padding: 80px 60px; background: var(--sand); }
+  .markets-strip {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 48px;
+  }
+  .market-pill {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 24px;
+    border: 1px solid rgba(26,22,17,0.15);
+    background: var(--cream);
+    font-size: 13px; font-weight: 500;
+    transition: all 0.2s; cursor: default;
+  }
+  .market-pill:hover {
+    background: var(--ink); color: var(--cream);
+    border-color: var(--ink);
+  }
+  .market-flag { font-size: 20px; }
+
+  /* ── PROCESS ── */
+  .process { padding: 100px 60px; background: var(--cream); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 5%; right: 5%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--mist) 10%, var(--mist) 90%, transparent);
+  }
+  .process-step { padding: 0 32px; }
+  .step-num {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--cream); border: 2px solid var(--terracotta);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; color: var(--terracotta);
+    margin-bottom: 32px; position: relative; z-index: 1;
+  }
+  .step-title {
+    font-size: 15px; font-weight: 600; letter-spacing: 0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .step-desc {
+    font-size: 13px; font-weight: 400; line-height: 1.7;
+    color: rgba(26,22,17,0.55);
+  }
+
+  /* ── BLOG ── */
+  .blog { padding: 100px 60px; background: var(--sand); }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 24px;
+  }
+  .blog-card { cursor: pointer; }
+  .blog-img-wrap { overflow: hidden; margin-bottom: 20px; }
+  .blog-img-wrap img {
+    width: 100%; height: 200px; object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: saturate(0.9);
+  }
+  .blog-card:first-child .blog-img-wrap img { height: 300px; }
+  .blog-card:hover .blog-img-wrap img { transform: scale(1.05); }
+  .blog-cat {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--terracotta);
+    margin-bottom: 10px;
+  }
+  .blog-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; line-height: 1.3;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .blog-card:first-child .blog-title { font-size: 30px; }
+  .blog-date {
+    font-size: 11px; color: rgba(26,22,17,0.4);
+    font-weight: 500; letter-spacing: 0.06em;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 120px 60px;
+    background: var(--terracotta);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 4.5vw, 66px);
+    font-weight: 300; line-height: 1.05;
+    color: var(--cream);
+  }
+  .cta-title em { font-style: italic; }
+  .cta-right { display: flex; flex-direction: column; gap: 20px; }
+  .cta-text { font-size: 15px; line-height: 1.7; color: rgba(250,247,243,0.8); }
+  .cta-input-row { display: flex; gap: 0; }
+  .cta-input {
+    flex: 1; padding: 16px 20px;
+    border: none; border-bottom: 2px solid rgba(250,247,243,0.5);
+    background: transparent; color: var(--cream);
+    font-family: 'Syne', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s;
+  }
+  .cta-input::placeholder { color: rgba(250,247,243,0.5); }
+  .cta-input:focus { border-color: var(--cream); }
+  .cta-submit {
+    padding: 16px 32px;
+    background: var(--cream); color: var(--terracotta);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; border: none; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cta-submit:hover { background: var(--sand); }
+  .cta-note { font-size: 11px; color: rgba(250,247,243,0.5); }
+
+  /* ── PARTNERS ── */
+  .partners { padding: 72px 60px; background: var(--cream); border-top: 1px solid var(--mist); }
+  .partners-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: rgba(26,22,17,0.35);
+    text-align: center; margin-bottom: 40px;
+  }
+  .partners-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 60px; flex-wrap: wrap;
+  }
+  .partner-logo {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(26,22,17,0.25);
+    transition: color 0.2s;
+  }
+  .partner-logo:hover { color: var(--ink); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    padding: 72px 60px 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+  }
+  .footer-brand-name {
+    font-weight: 800; font-size: 18px; letter-spacing: 0.2em;
+    color: var(--cream); margin-bottom: 16px;
+  }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-style: italic;
+    color: rgba(250,247,243,0.45);
+    line-height: 1.5; margin-bottom: 28px;
+  }
+  .footer-address { font-size: 12px; color: rgba(250,247,243,0.35); line-height: 1.8; }
+  .footer-socials { display: flex; gap: 16px; margin-top: 28px; }
+  .footer-social {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(250,247,243,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: rgba(250,247,243,0.5);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .footer-social:hover { background: var(--terracotta); border-color: var(--terracotta); color: var(--cream); }
+  .footer-col-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    font-size: 13px; color: rgba(250,247,243,0.45);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    grid-column: 1 / -1;
+    padding-top: 40px; margin-top: 20px;
+    border-top: 1px solid rgba(250,247,243,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 12px; color: rgba(250,247,243,0.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-left .hero-eyebrow  { animation-delay: 0.1s; }
+  .hero-left .hero-title    { animation-delay: 0.25s; }
+  .hero-left .hero-subtitle { animation-delay: 0.4s; }
+  .hero-left .hero-actions  { animation-delay: 0.55s; }
+  .hero-left .hero-scroll   { animation-delay: 0.7s; }
+
+  .stat-item:nth-child(1) { animation-delay: 0.05s; }
+  .stat-item:nth-child(2) { animation-delay: 0.15s; }
+  .stat-item:nth-child(3) { animation-delay: 0.25s; }
+  .stat-item:nth-child(4) { animation-delay: 0.35s; }
+  .stat-item:nth-child(5) { animation-delay: 0.45s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 32px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vh; }
+    .hero-left { padding: 140px 32px 60px; }
+    .stats { grid-template-columns: repeat(3, 1fr); padding: 52px 32px; }
+    .stat-item:nth-child(4), .stat-item:nth-child(5) { border-right: none; }
+    .destinations, .services, .process, .blog, .cta-section, .partners, .markets { padding: 72px 32px; }
+    .dest-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .dest-card:first-child { grid-row: auto; grid-column: 1 / -1; }
+    .services-grid, .process-steps, .blog-grid { grid-template-columns: 1fr; }
+    .cta-section { grid-template-columns: 1fr; gap: 40px; }
+    footer { grid-template-columns: 1fr 1fr; padding: 52px 32px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">BRACAP</a>
+  <ul class="nav-links">
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#blog">Blog</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Proposal</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">B2B Travel Partners — Since 2007</p>
+    <h1 class="hero-title">Europe Made<br><em>Simple</em></h1>
+    <p class="hero-subtitle">We craft tailor-made group travel experiences across Europe — blending local expertise, sustainable practices, and dedicated 24/7 support.</p>
+    <div class="hero-actions">
+      <a href="#destinations" class="btn-primary">See Itineraries</a>
+      <a href="#process" class="btn-ghost">How it works</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Scroll
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1200&q=85&auto=format&fit=crop"
+      alt="European travel destination"
+    >
+    <div class="hero-overlay"></div>
+    <span class="hero-caption">Paris, France</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stat-item">
+    <div class="stat-number">17<span>+</span></div>
+    <div class="stat-label">Years of Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">30<span>+</span></div>
+    <div class="stat-label">European Destinations</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">5k<span>+</span></div>
+    <div class="stat-label">Trips Organized</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number" style="font-size:40px; padding-top:8px">Global</div>
+    <div class="stat-label">B2B Clients</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">24<span>/7</span></div>
+    <div class="stat-label">Emergency Support</div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section class="destinations" id="destinations">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Where We Take You</p>
+      <h2 class="section-title">Featured<br>Destinations</h2>
+    </div>
+    <a href="#" class="section-link">All Itineraries</a>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=80&auto=format&fit=crop" alt="Venice">
+      <div class="dest-info">
+        <span class="dest-name">Venice</span>
+        <span class="dest-country">Italy</span>
+      </div>
+      <span class="dest-tag">Most Popular</span>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80&auto=format&fit=crop" alt="Barcelona">
+      <div class="dest-info">
+        <span class="dest-name">Barcelona</span>
+        <span class="dest-country">Spain</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format&fit=crop" alt="Lisbon">
+      <div class="dest-info">
+        <span class="dest-name">Lisbon</span>
+        <span class="dest-country">Portugal</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1565022536102-f7645c84354a?w=600&q=80&auto=format&fit=crop" alt="Cappadocia">
+      <div class="dest-info">
+        <span class="dest-name">Cappadocia</span>
+        <span class="dest-country">Turkey</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1548102245-c79dbcfa9f92?w=600&q=80&auto=format&fit=crop" alt="Madrid">
+      <div class="dest-info">
+        <span class="dest-name">Madrid</span>
+        <span class="dest-country">Spain</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">What We Offer</p>
+      <h2 class="section-title">Our Travel<br>Services</h2>
+    </div>
+    <a href="#" class="section-link" style="color:rgba(250,247,243,0.65)">Learn More</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <div class="service-num">01</div>
+      <h3 class="service-title">Tailor-Made & Bespoke</h3>
+      <p class="service-desc">Fully customized group itineraries designed around your clients' preferences, budget, and travel dates. Every detail considered.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎓</div>
+      <div class="service-num">02</div>
+      <h3 class="service-title">Educational & Student Travels</h3>
+      <p class="service-desc">Engaging European experiences for student groups — combining cultural immersion, history, and hands-on learning.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <div class="service-num">03</div>
+      <h3 class="service-title">Senior & Leisure Groups</h3>
+      <p class="service-desc">Thoughtfully paced itineraries for senior travelers — accessibility-focused with premium comfort and attentive service.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets">
+  <div>
+    <p class="section-eyebrow">Key Markets Served</p>
+    <h2 class="section-title" style="margin-bottom:0">Our Global Partners</h2>
+  </div>
+  <div class="markets-strip">
+    <div class="market-pill"><span class="market-flag">🇺🇸</span> USA</div>
+    <div class="market-pill"><span class="market-flag">🇲🇽</span> Mexico</div>
+    <div class="market-pill"><span class="market-flag">🇨🇦</span> Canada</div>
+    <div class="market-pill"><span class="market-flag">🇬🇧</span> United Kingdom</div>
+    <div class="market-pill"><span class="market-flag">🇮🇪</span> Ireland</div>
+    <div class="market-pill"><span class="market-flag">🇩🇪</span> Germany</div>
+    <div class="market-pill"><span class="market-flag">🇳🇱</span> Netherlands</div>
+    <div class="market-pill"><span class="market-flag">🇮🇳</span> India</div>
+    <div class="market-pill"><span class="market-flag">🇦🇺</span> Australia</div>
+    <div class="market-pill"><span class="market-flag">🇳🇿</span> New Zealand</div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">How We Work</p>
+      <h2 class="section-title">From Brief to<br>Boarding Pass</h2>
+    </div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Share Your Brief</h3>
+      <p class="step-desc">Tell us about your group's size, budget, dates, and interests. We listen carefully before proposing anything.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Receive a Free Proposal</h3>
+      <p class="step-desc">Our team designs a detailed, costed itinerary within 48 hours — tailored to your exact specifications.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <h3 class="step-title">Refine Together</h3>
+      <p class="step-desc">We collaborate until every detail is perfect — hotels, guides, logistics, dining, excursions and more.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Travel with Confidence</h3>
+      <p class="step-desc">Our local teams and 24/7 support ensure seamless execution on the ground. You focus on your clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog" id="blog">
+  <div class="section-header">
+    <div>
+      <p class="section-eyebrow">Our Blog</p>
+      <h2 class="section-title">Travel<br>Insights</h2>
+    </div>
+    <a href="#" class="section-link">All Articles</a>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img-wrap">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80&auto=format&fit=crop" alt="Active Travel">
+      </div>
+      <p class="blog-cat">Active Travel</p>
+      <h3 class="blog-title">Beyond the Guidebook: 7 Hidden Routes That Redefine Active Travel in Europe</h3>
+      <span class="blog-date">March 14, 2026</span>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img-wrap">
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&auto=format&fit=crop" alt="Local Travel">
+      </div>
+      <p class="blog-cat">Local Culture</p>
+      <h3 class="blog-title">Pedal, Hike, Repeat: How to Experience a Destination Like a Local</h3>
+      <span class="blog-date">February 28, 2026</span>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img-wrap">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format&fit=crop" alt="Active Travel Bucket List">
+      </div>
+      <p class="blog-cat">Destinations</p>
+      <h3 class="blog-title">From Coastlines to Countryside: The Ultimate Active Travel Bucket List</h3>
+      <span class="blog-date">February 10, 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div>
+    <h2 class="cta-title">Ready to Plan<br>Your Next<br><em>Group Journey?</em></h2>
+  </div>
+  <div class="cta-right">
+    <p class="cta-text">Send us your requirements and we'll prepare a free, no-obligation group travel proposal within 48 hours. No strings, no pressure.</p>
+    <div class="cta-input-row">
+      <input class="cta-input" type="email" placeholder="Your work email">
+      <button class="cta-submit">Request Proposal</button>
+    </div>
+    <p class="cta-note">Or book a 30-minute call directly — we're based in Barcelona (CET).</p>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <p class="partners-label">Trusted by Leading Travel Agencies Worldwide</p>
+  <div class="partners-row">
+    <span class="partner-logo">Globetrotter</span>
+    <span class="partner-logo">Wanderlust Tours</span>
+    <span class="partner-logo">Atlas DMC</span>
+    <span class="partner-logo">Meridian Travel</span>
+    <span class="partner-logo">Horizon Group</span>
+    <span class="partner-logo">Via Voyages</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-brand-name">BRACAP</div>
+    <div class="footer-tagline">"Europe Made Simple<br>for B2B Travel Partners"</div>
+    <div class="footer-address">
+      C/ Joaquim Ruyra, 9-11<br>
+      08030 Barcelona, Spain
+    </div>
+    <div class="footer-socials">
+      <a href="https://linkedin.com" class="footer-social">in</a>
+      <a href="https://facebook.com" class="footer-social">f</a>
+      <a href="https://instagram.com" class="footer-social">ig</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Services</div>
+    <ul>
+      <li><a href="#">Tailor Made & Bespoke</a></li>
+      <li><a href="#">Educational Travels</a></li>
+      <li><a href="#">Senior & Leisure</a></li>
+      <li><a href="#">Why BRACAP</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Destinations</div>
+    <ul>
+      <li><a href="#">Iberian Peninsula</a></li>
+      <li><a href="#">Mediterranean</a></li>
+      <li><a href="#">Central Europe</a></li>
+      <li><a href="#">Eastern Europe</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Contact</div>
+    <ul>
+      <li><a href="#">Request a Proposal</a></li>
+      <li><a href="#">Book a Call</a></li>
+      <li><a href="#">Email Us</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 BRACAP. All rights reserved.</span>
+    <span class="footer-copy">Privacy Policy · Cookies</span>
+  </div>
+</footer>
+
+</body>
+</html>
